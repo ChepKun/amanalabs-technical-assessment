@@ -1,3 +1,13 @@
+/**
+ * Known Limitations: Amount calculation in this trigger relies on Aggregate SOQL query,
+ *                    but the query will throw an exception as soon as it will find more than 50000 opportunities for calculation.
+ *                    So this trigger is suitable for real-time calculation on a relatively small amount of records.
+ * 
+ * Possible Workarounds: 1. A batch job can be scheduled to run once a day for amount recalculation.
+ *                       2. Save account Ids for recalculation in a custom object using this trigger.
+ *                          Run/Rerun Queable/Batch job from the trigger for recalculation.
+ *                          The async job will find Ids in the custom object and recalculate amount only for those accounts.
+ */
 public with sharing class OpportunityTriggerHandler {
 
     private static final Map<String, SObjectField> WOOD_TYPE_TO_AMOUNT = new Map<String, SObjectField> {
