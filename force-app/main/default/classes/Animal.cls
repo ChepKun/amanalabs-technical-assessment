@@ -1,126 +1,184 @@
 public inherited sharing class Animal {
 
-    global String animalType;
+    private abstract class BaseAnimal {
 
-    public Animal(String animalType) {
-        this.animalType = animalType;
+        virtual protected Boolean roar() {
+            // roaring behavior here
+            return true;
+        }
+
+        virtual protected Boolean meow() {
+            // meowing behavior here
+            return true;
+        }
+
+        virtual protected Boolean neigh() {
+            // neighing behavior here
+            return true;
+        }
+
+        virtual protected Boolean hiss() {
+            // hissing behavior here
+            return true;
+        }
+
+        virtual protected Boolean growl() {
+            // growling behavior here
+            return true;
+        }
+
+        virtual protected Boolean moo() {
+            // mooing behavior here
+            return true;
+        }
+
+        virtual protected Boolean bark() {
+            // barking behavior here
+            return true;
+        }
+
+        virtual protected Boolean run() {
+            // running behavior here
+            return true;
+        }
+
+        virtual protected Boolean walk() {
+            // walking behavior here
+            return true;
+        }
+
+        virtual protected Boolean slide() {
+            // sliding behavior here
+            return true;
+        }
+
+        virtual protected Boolean doSwim() {
+            // swimming behavior here
+            return true;
+        }
+    
     }
 
-    public void makeNoise() {
-        if (animalType == 'Lion') {
-            roar();
-        }
-        else if (animalType == 'Cat') {
-            meow();
-        }
-        else if (animalType == 'Horse') {
-            neigh();
-        }
-        else if (animalType == 'Alligator') {
-            hiss();
-        }
-        else if (animalType == 'Bear') {
-            growl();
-        }
-        else if (animalType == 'Cow') {
-            moo();
-        }
-        else if (animalType == 'Dog') {
-            bark();
-        }
+    public interface IAnimal {
+        
+        Boolean makeNoise();
+
+        Boolean move();
+
+        Boolean swim();
+
     }
 
-    public void move() {
-        if (animalType == 'Lion') {
-            run();
+    public class Lion extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.roar();
         }
-        else if (animalType == 'Cat') {
-            walk();
+
+        public Boolean move() {
+            return this.run();
         }
-        else if (animalType == 'Horse') {
-            slide();
+
+        public Boolean swim() {
+            return this.doSwim();
         }
-        else if (animalType == 'Alligator') {
-            hiss();
-        }
-        else if (animalType == 'Bear') {
-            walk();
-        }
-        else if (animalType == 'Cow') {
-            walk();
-        }
-        else if (animalType == 'Dog') {
-            run();
-        }
+
     }
 
-    public void swim() {
-        if (animalType == 'Lion') {
-            doSwim();
+    public class Cat extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.meow();
         }
-        else if (animalType == 'Cat') {
-            // ignore, cannot swim
+
+        public Boolean move() {
+            return this.walk();
         }
-        else if (animalType == 'Horse') {
-            // ignore, cannot swim
+
+        public Boolean swim() {
+            return false;
         }
-        else if (animalType == 'Alligator') {
-            doSwim();
+
+    }
+
+    public class Horse extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.neigh();
         }
-        else if (animalType == 'Bear') {
-            doSwim();
+
+        public Boolean move() {
+            return this.slide();
         }
-        else if (animalType == 'Cow') {
-            // ignore, cannot swim
+
+        public Boolean swim() {
+            return false;
         }
-        else if (animalType == 'Dog') {
-            doSwim();
+
+    }
+
+    public class Alligator extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.hiss();
         }
+
+        public Boolean move() {
+            return this.hiss();
+        }
+
+        public Boolean swim() {
+            return this.doSwim();
+        }
+
     }
 
-    public void roar() {
-        // roaring behavior here
+    public class Bear extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.growl();
+        }
+
+        public Boolean move() {
+            return this.walk();
+        }
+
+        public Boolean swim() {
+            return this.doSwim();
+        }
+
     }
 
-    public void meow() {
-        // meowing behavior here
+    public class Cow extends BaseAnimal implements IAnimal {
+
+        public Boolean makeNoise() {
+            return this.moo();
+        }
+
+        public Boolean move() {
+            return this.walk();
+        }
+
+        public Boolean swim() {
+            return false;
+        }
+
     }
 
-    public void neigh() {
-        // neighing behavior here
-    }
+    public class Dog extends BaseAnimal implements IAnimal {
 
-    public void hiss() {
-        // hissing behavior here
-    }
+        public Boolean makeNoise() {
+            return this.bark();
+        }
 
-    public void growl() {
-        // growling behavior here
-    }
+        public Boolean move() {
+            return this.run();
+        }
 
-    public void moo() {
-        // mooing behavior here
-    }
+        public Boolean swim() {
+            return this.doSwim();
+        }
 
-    public void bark() {
-        // barking behavior here
     }
-
-    public void run() {
-        // running behavior here
-    }
-
-    public void walk() {
-        // walking behavior here
-    }
-
-    public void slide() {
-        // sliding behavior here
-    }
-
-    public void doSwim() {
-        // swimming behavior here
-    }
-
 
 }
