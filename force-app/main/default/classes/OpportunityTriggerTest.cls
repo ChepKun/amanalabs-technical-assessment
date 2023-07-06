@@ -2,8 +2,8 @@
 private class OpportunityTriggerTest {
 
     private static final Integer DEFAULT_AMOUNT = 10000;
-    private static final Integer STANDARD_COUNT = 10;
-    private static final Integer RECYCLED_COUNT = 15;
+    private static final Integer STANDARD_COUNT = 90;
+    private static final Integer RECYCLED_COUNT = 90;
 
     @TestSetup
     static void setup() {

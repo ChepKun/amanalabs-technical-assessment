@@ -13,7 +13,7 @@ public with sharing class OpportunityTriggerHandler {
     public static void execute() {
         if (Trigger.isAfter) {
             if (Trigger.isInsert || Trigger.isUpdate) {
-                AMOUNT_CALCULATOR.execute(Trigger.new);
+                AMOUNT_CALCULATOR.execute(Trigger.new, (Map<Id, Opportunity>)Trigger.oldMap);
             }
         }
     }
@@ -23,22 +23,24 @@ public with sharing class OpportunityTriggerHandler {
      */
     private without sharing class AmountCalculator {
 
-        /**
-         * Used as a filter to avoid amount recalculations for already updated accounts
-         */
-        Set<Id> accountIds = new Set<Id>();
-
-        public void execute(List<Opportunity> records) {
+        public void execute(List<Opportunity> records, Map<Id, Opportunity> oldRecords) {
             Set<Id> accountIds = new Set<Id>();
             for (Opportunity record : records) {
-                if (String.isBlank(record.Wood_Type__c) ||
-                        !WOOD_TYPE_TO_AMOUNT.containsKey(record.Wood_Type__c) ||
-                            String.isBlank(record.AccountId) ||
-                                this.accountIds.contains(record.AccountId)) {
+                Opportunity oldRecord = oldRecords?.get(record.Id);
+                if (oldRecord?.Wood_Type__c == record.Wood_Type__c &&
+                        oldRecord?.AccountId == record.AccountId &&
+                            oldRecord?.Amount == record.Amount) {
                     continue;
                 }
-                accountIds.add(record.AccountId);
-                this.accountIds.add(record.AccountId);
+                if (!WOOD_TYPE_TO_AMOUNT.containsKey(record.Wood_Type__c) &&
+                        !WOOD_TYPE_TO_AMOUNT.containsKey(oldRecord?.Wood_Type__c)) {
+                    continue;
+                }
+                Id accountId = String.isBlank(record.AccountId) ? oldRecord?.AccountId : record.AccountId;
+                if (String.isBlank(accountId) || accountIds.contains(accountId)) {
+                    continue;
+                }
+                accountIds.add(accountId);
             }
             this.calculate(accountIds);
         }
