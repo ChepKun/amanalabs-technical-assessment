@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Account List Click</masterLabel>
+    <isExposed>true</isExposed>
+    <description>Message Channel to notify about Account List clicks</description>
+    <lightningMessageFields>
+        <fieldName>recordId</fieldName>
+        <description>Id of a selected record</description>
+    </lightningMessageFields>
+</LightningMessageChannel>
