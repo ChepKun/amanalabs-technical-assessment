@@ -1,5 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import { gql, graphql } from 'lightning/uiGraphQLApi';
+import { publish, MessageContext } from 'lightning/messageService';
+
+import ACCOUNT_LIST_CLICK_CHANNEL from '@salesforce/messageChannel/AccountListClick__c';
 
 const OBJECT_NAME = 'Account';
 const OBJECT_FIELD_NAME = 'Name';
@@ -23,7 +26,10 @@ const GRAPHQL_QUERY = gql`query AccountInfo {
 
 export default class AccountsList extends LightningElement {
 
-    /** @type {Object.<string, string>[]} */
+    @wire(MessageContext)
+    _messageContext;
+
+    /** @type {Object.<string, string|boolean>[]} */
     _columns = [
         { label: 'Name', name: OBJECT_FIELD_NAME, isLink: true },
         { label: 'Phone', name: OBJECT_FIELD_PHONE }
@@ -79,7 +85,7 @@ export default class AccountsList extends LightningElement {
         const { id, name } = event.target.dataset;
         switch (name) {
             case OBJECT_FIELD_NAME:
-                console.log(id);
+                publish(this._messageContext, ACCOUNT_LIST_CLICK_CHANNEL, { recordId: id });
                 break;
         }
     }
