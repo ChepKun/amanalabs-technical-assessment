@@ -1,0 +1,39 @@
+<template>
+    <div class="slds-card">
+        <table class="slds-table data-table
+                        slds-table_cell-buffer
+                        slds-table_bordered
+                        slds-table_resizable-cols">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th for:each={columns} for:item="column"
+                            key={column.name}
+                            scope="col">
+                        <span class="slds-truncate slds-var-m-horizontal_x-small">
+                            {column.label}
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr for:each={rows} for:item="row" key={row.id}>
+                    <td for:each={row.fields} for:item="field" key={field.id}>
+                        <!-- link -->
+                        <a lwc:if={field.isLink}
+                                href="#0"
+                                class="slds-truncate"
+                                data-id={row.id}
+                                data-name={field.name}
+                                onclick={handleRowClick}>
+                            {field.value}
+                        </a>
+                        <!-- text -->
+                        <span lwc:elseif={field.value} class="slds-truncate">
+                            {field.value}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
